@@ -20,14 +20,14 @@ public:
  }
 };
 
-class DoublyLinkedList
+class DoublyCircularLinkedList
 {
  Node *head;
  Node *tail;
  int size;
 
 public:
- DoublyLinkedList()
+DoublyCircularLinkedList()
  {
   size = 0;
   head = tail = NULL;
@@ -40,14 +40,19 @@ public:
   if (head == NULL)
   {
    head = tail = t;
+   t->next = head ; 
+   head->prev = head ;
    size++;
    return;
   }
   else
   {
+   t->next = head ; 
+   head->prev = t;
    t->prev = tail;
    tail->next = t;
    tail = t;
+
    size++;
   }
  }
@@ -57,11 +62,11 @@ public:
    return;
 
   Node *t = head;
-  while (t->next != NULL)
+ do
   {
    cout << t->val << " <-> ";
    t = t->next;
-  }
+  } while (t->next != head);
   cout << t->val << endl;
  }
 
@@ -76,9 +81,11 @@ public:
   if (index == 0)
   {
    head = head->next;
+   tail->next = head ;
+
    if (head)
    {
-    head->prev = NULL;
+    head->prev = tail;
    }
   }
   else
@@ -101,7 +108,7 @@ public:
 
 int main()
 {
- DoublyLinkedList dl;
+ DoublyCircularLinkedList dl;
  dl.insertAtLast(1);
  dl.insertAtLast(2);
  dl.insertAtLast(3);
@@ -109,7 +116,7 @@ int main()
  dl.insertAtLast(5);
 
  dl.display();
- dl.removeByIndex(5);
+ dl.removeByIndex(2);
  dl.display();
  return 0;
 }
