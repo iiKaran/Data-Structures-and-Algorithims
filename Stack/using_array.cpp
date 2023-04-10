@@ -80,6 +80,8 @@ int main()
     stk.push(1); 
     stk.push(2);
     stk.push(3);
+    // stack follows last in first out so the last entry is 3 which gets popped first
+    // time complexity - o(1)
     stk.display();
     stk.pop(); 
     cout<<endl; 
